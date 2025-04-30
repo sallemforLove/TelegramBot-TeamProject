@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавить варианты ответа</title>
+</head>
+<body>
+    <h1>Добавить варианты ответа для вопроса:</h1>
+    <p><strong>{{ question.text }}</strong></p>
+
+    <!-- Форма создания варианта -->
+    <form method="POST">
+        {% csrf_token %}
+        {{ answer_option_form.as_p }}
+        <button type="submit" name="add_more">Добавить ещё</button>
+        <button type="submit" name="done">Готово</button>
+    </form>
+    <a href="{% url 'dashboard' %}">← Вернуться на главную</a>
+
+    <!-- Существующие варианты -->
+    <h2>Существующие варианты ответа:</h2>
+    {% if existing_options %}
+        <ul>
+            {% for option in existing_options %}
+                <li>{{ option.text }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Пока нет ни одного варианта ответа.</p>
+    {% endif %}
+</body>
+</html>
