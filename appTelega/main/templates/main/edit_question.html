@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактировать вопрос</title>
+</head>
+<body>
+    <h1>Редактировать вопрос: "{{ question.text }}"</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Сохранить изменения</button>
+    </form>
+
+    <a href="{% url 'create_answer_option' question.id %}">Вернуться к вариантам ответа</a>
+</body>
+</html>
