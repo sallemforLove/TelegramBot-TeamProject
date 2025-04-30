@@ -39,7 +39,7 @@ class Question(models.Model):
     is_required = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.text  # 👈 Отображение текста вопроса
+        return self.text  
 
     class Meta:
         verbose_name = "Вопрос"
