@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Создание опросника - Опросник</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="create_survey.js"></script>
+</head>
+<body>
+    <!-- Шапка сайта -->
+    <header>
+        <div>
+            <a href="index.html">Опросник</a>
+            <button onclick="location.href='index.html'">Выйти из аккаунта</button>
+        </div>
+    </header>
+
+    <!-- Тело сайта -->
+    <main class="creator-page">
+        <section class="survey-creator">
+            <div>
+                <label class="survey-title">Название опроса:</label>
+                <input type="text" id="survey-title" required>
+            </div>
+
+            <div id="questions-container">
+                <div class="question-block">
+                    <div>
+                        <label>Вопрос:</label>
+                        <input type="text" class="question-input" required>
+                    </div>
+                    
+                    <div class="options-container">
+                        <div class="option-block">
+                            <input type="text" placeholder="Вариант ответа" required>
+                            <button class="delete-option">Удалить</button>
+                        </div>
+                        <div class="option-block">
+                            <input type="text" placeholder="Вариант ответа" required>
+                            <button class="delete-option">Удалить</button>
+                        </div>
+                    </div>
+                    
+                    <button class="add-option">+ Добавить вариант</button>
+                </div>
+            </div>
+
+            <div>
+                <button id="add-question">+ Добавить вопрос</button>
+                <button type="button" id="create-survey">Создать опрос</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Подвал сайта -->
+    <footer>
+        <p>LADA SPIRT</p>
+    </footer>
+</body>
+</html>

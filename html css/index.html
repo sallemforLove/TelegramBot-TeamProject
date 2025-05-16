@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Ведущий - Опросник</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="index.js"></script>
+</head>
+<body>
+    <!-- Шапка сайта -->
+    <header>
+        <div>
+            <a href="admin_index.html">Опросник</a>
+            <button onclick="location.href='create_survey.html'">Создать опрос</button>
+            <button onclick="location.href='create_profile.html'">Создать профиль</button>
+            <button onclick="location.href='index.html'">Выйти из аккаунта</button>
+        </div>
+    </header>
+
+    <!-- Тело сайта -->
+    <main>
+        <section class="surveys-list">
+            <h2>Мои опросы</h2>
+            <div id="surveys-container">
+                <div class="survey-card">
+                    <h3 class="survey-title">Название опроса</h3>
+                    <div class="survey-info">
+                        <p>Вопросов: <span class="questions-count">5</span></p>
+                        <p>Дата создания: <span class="creation-date">01.01.2023</span></p>
+                    </div>
+                    <div class="survey-actions">
+                        <button class="edit-btn">Редактировать</button>
+                        <button class="delete-btn">Удалить</button>
+                        <button class="send-btn">Отправить</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Подвал сайта -->
+    <footer>
+        <p>LADA SPIRT</p>
+    </footer>
+</body>
+</html>
