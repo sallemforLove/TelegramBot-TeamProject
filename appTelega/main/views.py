@@ -184,21 +184,32 @@ def is_leader_or_admin(user):
 @user_passes_test(is_admin)
 def create_profile(request):
     if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        role = request.POST.get('role')  # 'Администратор' или 'Ведущий'
+        tg_id = request.POST.get('tg_id')
+        first_name = request.POST.get('first_name', '')
+        last_name = request.POST.get('last_name', '')
+        age = request.POST.get('age')
 
-        if username and password and role:
-            user = User.objects.create_user(username=username, password=password)
-            group = Group.objects.get(name=role)
-            user.groups.add(group)
-            return redirect('index')
-        else:
-            return render(request, 'main/create_profile.html', {'error': 'Все поля обязательны'})
+        if not tg_id:
+            return render(request, 'main/create_profile.html', {'error': 'TG ID обязателен'})
+
+        respondent, created = Respondent.objects.get_or_create(
+            tgId=tg_id,
+            defaults={
+                "first_name": first_name,
+                "last_name": last_name,
+                "age": age or None,
+                "is_allowed": True
+            }
+        )
+        if not created:
+            return render(request, 'main/create_profile.html', {'error': 'Такой пользователь уже существует'})
+
+        return redirect('index')
 
     return render(request, 'main/create_profile.html')
 
-from .models import Survey, Question, AnswerOption, Response
+
+
 
 @login_required
 def survey_stats(request, survey_id):
@@ -342,3 +353,23 @@ def receive_bot_answer(request):
         return JsonResponse({"error": "Неверный JSON"}, status=400)
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=500)
+
+
+@csrf_exempt
+@require_POST
+def login_telegram(request):
+    data = json.loads(request.body)
+    tg_id = data.get("user_id")
+
+    respondent, created = Respondent.objects.get_or_create(
+        tgId=tg_id,
+        defaults={
+            "first_name": data.get("first_name", ""),
+            "last_name": data.get("last_name", "")
+        }
+    )
+
+    if not respondent.is_allowed:
+        return JsonResponse({"error": "Доступ запрещён. Обратитесь к администратору."}, status=403)
+
+    return JsonResponse({"status": "ok"})
